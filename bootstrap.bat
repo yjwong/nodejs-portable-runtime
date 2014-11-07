@@ -39,6 +39,6 @@ SETLOCAL EnableDelayedExpansion
     )
 
     ECHO Environment set up.
-    powershell
+    powershell -NoLogo
     
 ENDLOCAL
