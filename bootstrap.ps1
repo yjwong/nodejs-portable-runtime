@@ -15,9 +15,9 @@ if (-Not (Test-Path $path_to_node)) {
     # Determine the appropriate binary for the architecture.
     Write-Host -NoNewline "Downloading Node.js runtime... "
     If ($env:processor_architecture -eq "AMD64") {
-        $script:node_url = "http://nodejs.org/dist/v0.10.35/x64/node.exe"
+        $script:node_url = "http://nodejs.org/dist/v0.12.2/x64/node.exe"
     } ElseIf ($env:processor_architecture -eq "x86") {
-        $script:node_url = "http://nodejs.org/dist/v0.10.35/node.exe"
+        $script:node_url = "http://nodejs.org/dist/v0.12.2/node.exe"
     } Else {
         throw "Unsupported architecture found."
     }
