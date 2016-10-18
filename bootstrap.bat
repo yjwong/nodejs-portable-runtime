@@ -11,9 +11,12 @@ SETLOCAL EnableDelayedExpansion
         EXIT
     ) ELSE (
         ECHO Bootstrapping the runtime...
-        FOR /F "usebackq delims=" %%v IN (`powershell -ExecutionPolicy RemoteSigned -File .\bootstrap.ps1`) DO SET "RUNTIME_DIR=%%v"
+        SET TMPFILE=%TEMP%\nodejs-portable-runtime-%RANDOM%.tmp
+        powershell "powershell -ExecutionPolicy RemoteSigned -File .\bootstrap.ps1 | Tee-Object -FilePath !TMPFILE!"
+        FOR /F "usebackq delims=" %%v IN (`TYPE !TMPFILE!`) DO SET "RUNTIME_DIR=%%v"
         SET PROJECT_DIR=%~dp0
         SET "NEW_PATH=!PROJECT_DIR!node_modules\.bin;!RUNTIME_DIR!;%PATH%"
+        DEL !TMPFILE!
     )
 
 ENDLOCAL & @SET PATH=%NEW_PATH%
@@ -30,7 +33,7 @@ SETLOCAL EnableDelayedExpansion
             ECHO Installing bower...
             call npm install -g bower
         )
-        
+
         WHERE /Q grunt > NUL
         IF NOT !ERRORLEVEL! EQU 0 (
             ECHO Installing grunt-cli...
@@ -40,5 +43,5 @@ SETLOCAL EnableDelayedExpansion
 
     ECHO Environment set up.
     powershell -NoLogo
-    
+
 ENDLOCAL
