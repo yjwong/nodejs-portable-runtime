@@ -2,8 +2,8 @@
 # Copyright 2014 Wong Yong Jie. See LICENSE for details.
 
 # Versions of stuff.
-$node_version = "6.9.1"
-$npm_version = "3.10.8"
+$node_version = "6.9.2"
+$npm_version = "3.10.10"
 
 # Common variables.
 $runtime_dir = "{0}\.runtime" -f $pwd
